@@ -1,0 +1,5 @@
+{
+  "watch": ["src", "bin"],
+  "ext": ".ts,.js",
+  "exec": "ts-node --transport-only -r tsconfig-paths/register main.ts"
+}
