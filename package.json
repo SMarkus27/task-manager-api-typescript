@@ -9,9 +9,15 @@
     "start": "nodemon"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.16.0",
     "nodemon": "^2.0.22",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.6.2"
   }
 }

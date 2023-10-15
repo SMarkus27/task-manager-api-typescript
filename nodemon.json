@@ -1,5 +1,6 @@
 {
   "watch": ["src", "bin"],
   "ext": ".ts,.js",
-  "exec": "ts-node --transport-only -r tsconfig-paths/register main.ts"
+  "ignore": [],
+  "exec": "ts-node --transpile-only -r tsconfig-paths/register ./src/main.ts -L"
 }
