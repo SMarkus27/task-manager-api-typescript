@@ -1,11 +1,11 @@
 {
-  "extends": "tsconfig.path.json",
+  "extends": "./tsconfig.path.json",
   "compilerOptions": {
     "target": "ES2016",
     "module": "CommonJS",
     "esModuleInterop": true,
+    "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true
   }
