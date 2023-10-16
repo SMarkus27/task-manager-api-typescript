@@ -20,6 +20,8 @@ export class MongoDBInfrastructure implements IMongoDBInfrastructure {
         }
         catch (error) {
             console.log("Something happening")
+            throw new Error("MongoDB Connection Error")
+
 
         }
     }
