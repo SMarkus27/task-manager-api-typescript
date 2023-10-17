@@ -2,7 +2,7 @@ import { connect } from "mongoose";
 import * as mongoose from "mongoose";
 import { config } from "dotenv";
 import * as process from "process";
-import {IMongoDBInfrastructure} from "../core/interfaces/infrastructures/mongodb/interface";
+import {IMongoDBInfrastructure} from "../../core/interfaces/infrastructures/mongodb/interface";
 config()
 
 export class MongoDBInfrastructure implements IMongoDBInfrastructure {
