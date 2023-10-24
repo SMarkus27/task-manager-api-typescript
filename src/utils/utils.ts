@@ -21,10 +21,10 @@ export const paginationResult = (page: number, limit: number, endIndex: number, 
     return pagination
 }
 
-export const calculateEndIndex = (page: number, limit: number) => {
+export const calculateEndIndex = (page: number, limit: number): number => {
     return page * limit
 }
 
-export const calculateSkip = (page: number, limit: number) => {
+export const calculateSkip = (page: number, limit: number): number => {
     return (page - 1) * limit
 }
