@@ -1,14 +1,15 @@
 import {TaskService} from "../../services/tasks/service";
+import {ITaskController} from "../../core/interfaces/controllers/tasks/interface";
 
 const taskService =  new TaskService();
 
 
-export class TaskController {
+export class TaskController implements ITaskController {
 
 
-    async createTask(request, response, next) {
+    async createTask(request, response) {
         const taskData = request.body;
-        return  await taskService.createTask(taskData, response, next);
+        return  await taskService.createTask(taskData, response);
 
     };
 

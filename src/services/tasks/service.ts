@@ -6,8 +6,9 @@ import {
     createTaskResponse, taskFoundResponse,
     taskNotFoundResponse, updateTaskResponse
 } from "../../domain/responses/tasks/response";
+import {ITaskService} from "../../core/interfaces/services/tasks/interface";
 
-export class TaskService {
+export class TaskService implements ITaskService{
     private tasksRepository: TasksRepository;
 
     constructor() {
