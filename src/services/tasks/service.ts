@@ -7,97 +7,89 @@ export class TaskService {
         this.tasksRepository = new TasksRepository();
     }
 
-    async createTask(req, res, next) {
-        const data = req["data"]
+    async createTask(taskData: object, res) {
+        const result= await this.tasksRepository.createTask(taskData);
 
-        const task = await this.tasksRepository.createTask(data);
-
-        return {
+        return res.status(200).json({
             success: true,
-            message: "Task Created",
-            result: task
-        }
+            data: result
+        })
+
     }
 
-    async findAllTasks(req, res, next) {
-        const data = req["data"]
-
-        const sort = data["sort"]
-        const page = data["page"]
-        const limit = data["limit"]
-
+    async findAllTasks(taskData, res) {
+        const sort = taskData["sort"]
+        const page = +taskData["page"] || 1;
+        const limit = +taskData["limit"] || 10;
 
         const skip = calculateSkip(page, limit);
         const endIndex = calculateEndIndex(page, limit);
-
         const {result, totalItems} = await this.tasksRepository.findAllPaginated({}, sort, skip, limit)
+        const pagination = paginationResult(page, limit, endIndex, skip, totalItems)
 
-        const pagination = paginationResult(page, limit, endIndex, skip, totalItems["totalItems"])
 
-
-        return {
-            success: false,
+        return res.status(200).json({
+            success: true,
             message: "Tasks found",
             totalItems,
             pagination,
             result
-        }
+        })
     }
 
 
-    async findOneTask(req, res, next) {
-        const data = req["data"]
-
-        const taskId = data["id"]
+    async findOneTask(taskData: object, res) {
+        const taskId = taskData["id"];
 
         const filter = {_id: taskId}
         const projection = {_id:0, __v:0}
         const taskResult = await this.tasksRepository.findOne(filter,projection)
 
         if (!taskResult) {
-            return {
+
+            return res.status(404).json({
                 success: false,
                 message: "Task not found",
-                result:  taskResult
-            }
+                data: []
+            })
+
         }
 
-        return {
+        return res.status(200).json({
             success: false,
             message: "Task found",
             result:  taskResult
-        }
+        })
 
     }
 
-    async updateTask(req, res, next) {
-        const data = req["data"]
-        const newData = req["newData"]
-
-        const taskId = data["id"]
+    async updateTask(taskData, res) {
+        const newData = taskData["newData"]
+        console.log(taskData)
+        const taskId = taskData["id"]
 
         const filter = {_id: taskId}
         const projection = {_id:0, __v:0}
         const result = await this.tasksRepository.findOne(filter,projection)
 
         if (!result) {
-            return {
+            return res.status(404).json({
                 success: false,
                 message: "Task not found",
-            }
+            })
         }
 
         const taskUpdated = await this.tasksRepository.update(filter, newData)
 
         if (taskUpdated.modifiedCount > 0) {
-            return {
+            return res.status(200).json({
                 success: true,
                 message: "Task updated",
-            }
+            })
         }
-        return {
+        return res.status(200).json({
             success: false,
             message: "Task not updated",
-        }
+        })
     }
 }
