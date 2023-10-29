@@ -1,24 +1,33 @@
 import {TasksRepository} from "../../repositories/tasks/repository";
 import {calculateEndIndex, calculateSkip, paginationResult} from "../../utils/utils";
+import {errorHandler} from "../../domain/responses/error/response";
+import {
+    allTaskFoundResponse,
+    createTaskResponse, taskFoundResponse,
+    taskNotFoundResponse, updateTaskResponse
+} from "../../domain/responses/tasks/response";
 
 export class TaskService {
+    private tasksRepository: TasksRepository;
 
-    constructor(private readonly tasksRepository: TasksRepository) {
+    constructor() {
         this.tasksRepository = new TasksRepository();
     }
 
-    async createTask(taskData: object, res) {
-        const result= await this.tasksRepository.createTask(taskData);
+    async createTask( taskData: object, response) {
+        try {
+            const result= await this.tasksRepository.createTask(taskData);
+            return createTaskResponse(response, result)
+        }
+        catch (error) {
+           return errorHandler(error, response)
+        }
 
-        return res.status(200).json({
-            success: true,
-            data: result
-        })
 
     }
 
-    async findAllTasks(taskData, res) {
-        const sort = taskData["sort"]
+    async findAllTasks(taskData, response) {
+        const sort = taskData["sort"] || "name";
         const page = +taskData["page"] || 1;
         const limit = +taskData["limit"] || 10;
 
@@ -27,69 +36,54 @@ export class TaskService {
         const {result, totalItems} = await this.tasksRepository.findAllPaginated({}, sort, skip, limit)
         const pagination = paginationResult(page, limit, endIndex, skip, totalItems)
 
-
-        return res.status(200).json({
-            success: true,
-            message: "Tasks found",
-            totalItems,
-            pagination,
-            result
-        })
+        return allTaskFoundResponse(response, result, totalItems, pagination)
     }
 
 
-    async findOneTask(taskData: object, res) {
-        const taskId = taskData["id"];
+    async findOneTask(taskData: object, response) {
+        try {
+            const taskId = taskData["id"];
 
-        const filter = {_id: taskId}
-        const projection = {_id:0, __v:0}
-        const taskResult = await this.tasksRepository.findOne(filter,projection)
+            const filter = {_id: taskId}
+            const projection = {_id:0, __v:0}
+            const taskResult = await this.tasksRepository.findOne(filter,projection)
 
-        if (!taskResult) {
+            if (!taskResult) {
+                return taskNotFoundResponse(response, taskResult)
+            }
 
-            return res.status(404).json({
-                success: false,
-                message: "Task not found",
-                data: []
-            })
+            return taskFoundResponse(response, taskResult)
 
         }
 
-        return res.status(200).json({
-            success: false,
-            message: "Task found",
-            result:  taskResult
-        })
+        catch (error) {
+            return errorHandler(error, response)
+            }
+        }
+
+    async updateTask(taskData, response) {
+        try {
+
+            const newData = taskData["newData"]
+            const taskId = taskData["id"]
+
+            const filter = {_id: taskId}
+            const projection = {_id:0, __v:0}
+            const result = await this.tasksRepository.findOne(filter,projection)
+
+            if (!result) {
+                return taskNotFoundResponse(response, result)
+            }
+
+            const taskUpdated = await this.tasksRepository.update(filter, newData)
+
+            return updateTaskResponse(response,taskUpdated )
+
+        }
+        catch (error) {
+            return errorHandler(error, response)
+        }
 
     }
 
-    async updateTask(taskData, res) {
-        const newData = taskData["newData"]
-        console.log(taskData)
-        const taskId = taskData["id"]
-
-        const filter = {_id: taskId}
-        const projection = {_id:0, __v:0}
-        const result = await this.tasksRepository.findOne(filter,projection)
-
-        if (!result) {
-            return res.status(404).json({
-                success: false,
-                message: "Task not found",
-            })
-        }
-
-        const taskUpdated = await this.tasksRepository.update(filter, newData)
-
-        if (taskUpdated.modifiedCount > 0) {
-            return res.status(200).json({
-                success: true,
-                message: "Task updated",
-            })
-        }
-        return res.status(200).json({
-            success: false,
-            message: "Task not updated",
-        })
-    }
 }

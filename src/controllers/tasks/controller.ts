@@ -1,15 +1,14 @@
 import {TaskService} from "../../services/tasks/service";
-import {TasksRepository} from "../../repositories/tasks/repository";
 
-const taskRepository = new TasksRepository();
-const taskService =  new TaskService(taskRepository);
+const taskService =  new TaskService();
 
 
 export class TaskController {
 
-    async createTask(request, response) {
+
+    async createTask(request, response, next) {
         const taskData = request.body;
-        return  await taskService.createTask(taskData, response);
+        return  await taskService.createTask(taskData, response, next);
 
     };
 
