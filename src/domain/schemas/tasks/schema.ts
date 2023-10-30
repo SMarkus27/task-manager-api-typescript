@@ -4,7 +4,7 @@ export const TaskSchema = new Schema({
         type: String,
         required: [true, "Please add a task name"],
         trim: true,
-        maxLength: [20, "Task name can not be more than 50 characters"]
+        maxLength: [20, "Task name can not be more than 20 characters"]
     },
     description: {
         type: String,
