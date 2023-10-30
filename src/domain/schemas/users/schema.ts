@@ -11,6 +11,7 @@ export const UserSchema = new Schema({
 
     email: {
         type: String,
+        required: [true, "Please add an email"],
         match: [
             /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
             "Please add a valid email"
