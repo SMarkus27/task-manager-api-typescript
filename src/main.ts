@@ -2,7 +2,9 @@ import {MongoDBInfrastructure} from "./infrastructures/mongodb/infrastructure";
 import {errorHandler} from "./domain/responses/error/response";
 const express = require("express");
 const cors = require("cors")
-const createTask = require("../src/routes/tasks/route")
+const taskRouter = require("../src/routes/tasks/route")
+const userRouter = require("../src/routes/users/route")
+
 const dotenv = require("dotenv");
 dotenv.config()
 
@@ -17,7 +19,9 @@ app.use(express.json())
 
 const PORT = process.env.PORT;
 
-app.use("/api/v1/tasks", createTask);
+app.use("/api/v1/tasks", taskRouter);
+app.use("/api/v1/auth", userRouter);
+
 app.use(errorHandler);
 app.listen(PORT, console.log("Server running"));
 
