@@ -34,7 +34,7 @@ export class TaskService implements ITaskService{
 
         const skip = calculateSkip(page, limit);
         const endIndex = calculateEndIndex(page, limit);
-        const {result, totalItems} = await this.tasksRepository.findAllPaginated({}, sort, skip, limit)
+        const {result, totalItems} = await this.tasksRepository.findAllPaginatedTasks({}, sort, skip, limit)
         const pagination = paginationResult(page, limit, endIndex, skip, totalItems)
 
         return allTaskFoundResponse(response, result, totalItems, pagination)
@@ -47,7 +47,7 @@ export class TaskService implements ITaskService{
 
             const filter = {_id: taskId}
             const projection = {_id:0, __v:0}
-            const taskResult = await this.tasksRepository.findOne(filter,projection)
+            const taskResult = await this.tasksRepository.findTask(filter,projection)
 
             if (!taskResult) {
                 return taskNotFoundResponse(response, taskResult)
@@ -70,13 +70,13 @@ export class TaskService implements ITaskService{
 
             const filter = {_id: taskId}
             const projection = {_id:0, __v:0}
-            const result = await this.tasksRepository.findOne(filter,projection)
+            const result = await this.tasksRepository.findTask(filter,projection)
 
             if (!result) {
                 return taskNotFoundResponse(response, result)
             }
 
-            const taskUpdated = await this.tasksRepository.update(filter, newData)
+            const taskUpdated = await this.tasksRepository.updateTask(filter, newData)
 
             return updateTaskResponse(response,taskUpdated )
 

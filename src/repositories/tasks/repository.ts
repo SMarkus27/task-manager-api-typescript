@@ -6,7 +6,7 @@ export class TasksRepository implements ITasksRepository {
         return await TaskModel.create(data);
     };
 
-    async findAllPaginated(filter: object, sort: string, skip: number, limit: number){
+    async findAllPaginatedTasks(filter: object, sort: string, skip: number, limit: number){
         let result;
 
         const totalItems = await TaskModel.countDocuments(filter);
@@ -27,10 +27,10 @@ export class TasksRepository implements ITasksRepository {
         }
 
     };
-    async findOne(filter: object, projection: object){
+    async findTask(filter: object, projection: object){
         return TaskModel.findOne(filter, projection)
     };
-    async update(filter: object, newData: object){
+    async updateTask(filter: object, newData: object){
         return TaskModel.updateOne(filter, newData)
     };
 
