@@ -4,14 +4,27 @@ import {IUserRepository} from "../../core/interfaces/repositories/users/interfac
 export class UsersRepository implements IUserRepository {
 
     async createUser(data: object){
-        return await UserModel.create(data);
+        const user  = await UserModel.create(data)
+        const token = user.getJwtToken();
+        return token;
     };
 
-    async findUser(filter: object, projection: object){
-        return UserModel.findOne(filter, projection)
+    async findUser(filter: object, projection: object, options: object){
+        return UserModel.findOne(filter, projection, options)
     };
-    async updateUser(filter: object, newData: object){
-        return UserModel.updateOne(filter, newData)
-    };
+
+    async matchPassword(userData: object) {
+        const {email, password} = userData
+        const user  = await UserModel.findOne({email: email}).select("+password")
+        if(!user){
+            return false
+        }
+        return user.matchPassword(password)
+    }
+
+    async getToken(email: string) {
+        const user  = await UserModel.findOne({email: email})
+        return user.getJwtToken();
+    }
 
 }

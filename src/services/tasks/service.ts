@@ -7,6 +7,7 @@ import {
     taskNotFoundResponse, updateTaskResponse
 } from "../../domain/responses/tasks/response";
 import {ITaskService} from "../../core/interfaces/services/tasks/interface";
+import {notAuthorizedError} from "../../domain/errors/error";
 
 export class TaskService implements ITaskService{
     private tasksRepository: TasksRepository;
@@ -16,6 +17,7 @@ export class TaskService implements ITaskService{
     }
 
     async createTask( taskData: object, response) {
+
         try {
             const result= await this.tasksRepository.createTask(taskData);
             return createTaskResponse(response, result)
@@ -28,6 +30,7 @@ export class TaskService implements ITaskService{
     }
 
     async findAllTasks(taskData, response) {
+        console.log(taskData)
         const sort = taskData["sort"] || "name";
         const page = +taskData["page"] || 1;
         const limit = +taskData["limit"] || 10;
@@ -65,15 +68,21 @@ export class TaskService implements ITaskService{
     async updateTask(taskData, response) {
         try {
 
-            const newData = taskData["newData"]
-            const taskId = taskData["id"]
+            const user = taskData.user;
 
-            const filter = {_id: taskId}
-            const projection = {_id:0, __v:0}
+            const newData = taskData["newData"];
+            const taskId = taskData["id"];
+
+            const filter = {_id: taskId};
+            const projection = {_id:0, __v:0};
             const result = await this.tasksRepository.findTask(filter,projection)
 
             if (!result) {
                 return taskNotFoundResponse(response, result)
+            }
+
+            if (result.user.toString() !== user.toString()) {
+                return errorHandler(notAuthorizedError, response)
             }
 
             const taskUpdated = await this.tasksRepository.updateTask(filter, newData)
