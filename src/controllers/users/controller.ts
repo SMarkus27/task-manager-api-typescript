@@ -6,14 +6,15 @@ const userService =  new UsersService()
 
 export class UsersController implements IUsersController {
 
-
     async createUser(request, response) {
         const userData = request.body;
         return  await userService.createUser(userData, response);
-
     };
 
-
+    async login(request, response, next) {
+        const userData = request.body;
+        return  await userService.login(userData, response, next);
+    };
 
 
 }
