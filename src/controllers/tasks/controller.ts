@@ -1,14 +1,13 @@
 import {TaskService} from "../../services/tasks/service";
 import {ITaskController} from "../../core/interfaces/controllers/tasks/interface";
-
 const taskService =  new TaskService();
-
 
 export class TaskController implements ITaskController {
 
 
     async createTask(request, response) {
-        const taskData = request.body;
+        const userId = request.user["_id"]
+        const taskData = {...request.body, user: userId};
         return  await taskService.createTask(taskData, response);
 
     };
@@ -24,7 +23,8 @@ export class TaskController implements ITaskController {
     };
 
    async updateTask(request, response) {
-       const taskData = {newData: request.body, ...request.params};
+       const userId = request.user["_id"]
+       const taskData = {newData: request.body, ...request.params, user: userId};
        return await taskService.updateTask(taskData, response)
    }
 }
