@@ -1,4 +1,6 @@
 import { Schema } from "mongoose"
+import mongoose from "mongoose";
+
 export const TaskSchema = new Schema({
     name: {
         type: String,
@@ -19,6 +21,11 @@ export const TaskSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now()
-    }
+    },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true
+    },
 
 });
