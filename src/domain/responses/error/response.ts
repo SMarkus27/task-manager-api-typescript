@@ -9,7 +9,6 @@ export class ErrorResponse extends Error {
 export const errorHandler = (err, response ) => {
     let error = {...err}
     error.message = err.message;
-
     if (err.name === "CastError") {
         const message = `Resource not found with id of ${err.value}`;
         error = new ErrorResponse(message, 404);
@@ -18,6 +17,15 @@ export const errorHandler = (err, response ) => {
     if (err.name === "ValidationError") {
         const message = Object.values(err.errors).map(val => val.message);
         error = new ErrorResponse(message, 400);
+    }
+
+    if (err.code === 11000) {
+        const message = `Resource already exist`;
+        error = new ErrorResponse(message, 400);
+    }
+    if (err.name === "JsonWebTokenError") {
+        const message = "Invalid Token";
+        error = new ErrorResponse(message, 401);
     }
 
     response.status(error.statusCode || 500).json({
