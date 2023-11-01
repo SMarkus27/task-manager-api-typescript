@@ -8,6 +8,7 @@ import {
 } from "../../domain/responses/tasks/response";
 import {ITaskService} from "../../core/interfaces/services/tasks/interface";
 import {notAuthorizedError} from "../../domain/errors/error";
+import {TaskDataType, TaskFilterType, UpdateTaskDataType} from "../../domain/types/tasks/type";
 
 export class TaskService implements ITaskService{
     private tasksRepository: TasksRepository;
@@ -16,7 +17,7 @@ export class TaskService implements ITaskService{
         this.tasksRepository = new TasksRepository();
     }
 
-    async createTask( taskData: object, response) {
+    async createTask( taskData: TaskDataType, response) {
 
         try {
             const result= await this.tasksRepository.createTask(taskData);
@@ -29,8 +30,7 @@ export class TaskService implements ITaskService{
 
     }
 
-    async findAllTasks(taskData, response) {
-        console.log(taskData)
+    async findAllTasks(taskData: TaskDataType, response) {
         const sort = taskData["sort"] || "name";
         const page = +taskData["page"] || 1;
         const limit = +taskData["limit"] || 10;
@@ -44,13 +44,13 @@ export class TaskService implements ITaskService{
     }
 
 
-    async findOneTask(taskData: object, response) {
+    async findOneTask(taskData: TaskFilterType, response) {
         try {
             const taskId = taskData["id"];
 
             const filter = {_id: taskId}
-            const projection = {_id:0, __v:0}
-            const taskResult = await this.tasksRepository.findTask(filter,projection)
+            const projection = {_id: false, __v:false}
+            const taskResult = await this.tasksRepository.findTask(filter, projection)
 
             if (!taskResult) {
                 return taskNotFoundResponse(response, taskResult)
@@ -65,7 +65,7 @@ export class TaskService implements ITaskService{
             }
         }
 
-    async updateTask(taskData, response) {
+    async updateTask(taskData: UpdateTaskDataType, response) {
         try {
 
             const user = taskData.user;
@@ -74,8 +74,8 @@ export class TaskService implements ITaskService{
             const taskId = taskData["id"];
 
             const filter = {_id: taskId};
-            const projection = {_id:0, __v:0};
-            const result = await this.tasksRepository.findTask(filter,projection)
+            const projection = {_id:false, __v:false};
+            const result = await this.tasksRepository.findTask(filter, projection)
 
             if (!result) {
                 return taskNotFoundResponse(response, result)

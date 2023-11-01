@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 import { config } from "dotenv";
 import {invalidCredentialsError, noCredentialsError, authorizationError} from "../../domain/errors/error";
 import {createUserResponse} from "../../domain/responses/users/response";
+import {UserDataType} from "../../domain/types/users/type";
 config()
 
 export class UsersService implements IUsersService{
@@ -14,7 +15,7 @@ export class UsersService implements IUsersService{
         this.usersRepository = new UsersRepository();
     }
 
-    async createUser(userData: object, response) {
+    async createUser(userData: UserDataType, response){
         try {
             const token= await this.usersRepository.createUser(userData);
             return createUserResponse(response, token)
@@ -26,7 +27,7 @@ export class UsersService implements IUsersService{
     };
 
 
-    async login(userData: object, response, next) {
+    async login(userData: UserDataType, response) {
         const {email, password} = userData
         if (!email || !password) {
             return errorHandler(noCredentialsError, response)
@@ -40,7 +41,7 @@ export class UsersService implements IUsersService{
         }
 
         const token= await this.usersRepository.getToken(email);
-        response.status(200).json({success: true, token});
+        return createUserResponse(response, token)
 
     }
 

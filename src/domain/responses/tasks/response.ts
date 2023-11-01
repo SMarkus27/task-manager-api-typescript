@@ -1,13 +1,13 @@
 
 export const createTaskResponse = (response, result) => {
-    response.status(200).json({
+    return response.status(200).json({
         success: true,
         data: result
     })
 }
 
 export const taskNotFoundResponse = (response, result) => {
-    response.status(404).json({
+    return response.status(404).json({
         success: false,
         message: "Task not found",
         data: []
@@ -15,7 +15,7 @@ export const taskNotFoundResponse = (response, result) => {
 }
 
 export const allTaskFoundResponse = (response, result, totalItems, pagination) => {
-    response.status(200).json({
+    return response.status(200).json({
         success: true,
         message: "Tasks found",
         totalItems,
@@ -25,7 +25,7 @@ export const allTaskFoundResponse = (response, result, totalItems, pagination) =
 }
 
 export const taskFoundResponse = (response, result) => {
-    response.status(200).json({
+    return response.status(200).json({
         success: true,
         message: "Task found",
         data: result
