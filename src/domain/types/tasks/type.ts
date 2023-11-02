@@ -1,7 +1,7 @@
 export type TaskDataType = {
-    name: string,
-    description: string,
-    completed: boolean,
+    name?: string,
+    description?: string,
+    completed?: boolean,
     user?: string
 }
 
@@ -20,8 +20,8 @@ export type TaskFilterType = {
 }
 
 export type TaskProjectionType = {
-    _id: boolean,
-    __v: boolean,
+    _id?: boolean,
+    __v?: boolean,
     name?: boolean,
     description?: boolean,
     completed?: boolean,

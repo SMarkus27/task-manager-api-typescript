@@ -1,11 +1,12 @@
 import {errorHandler, ErrorResponse} from "../../domain/responses/error/response";
 import {UsersRepository} from "../../repositories/users/repository";
 import {IUsersService} from "../../core/interfaces/services/users/interface";
-const jwt = require("jsonwebtoken");
 import { config } from "dotenv";
 import {invalidCredentialsError, noCredentialsError, authorizationError} from "../../domain/errors/error";
 import {createUserResponse} from "../../domain/responses/users/response";
 import {UserDataType} from "../../domain/types/users/type";
+import {UserModel} from "../../domain/models/users/model";
+const jwt = require("jsonwebtoken");
 config()
 
 export class UsersService implements IUsersService{
@@ -40,7 +41,7 @@ export class UsersService implements IUsersService{
             return errorHandler(invalidCredentialsError, response)
         }
 
-        const token= await this.usersRepository.getToken(email);
+        const token = await this.usersRepository.getToken(email);
         return createUserResponse(response, token)
 
     }
@@ -60,13 +61,16 @@ export class UsersService implements IUsersService{
 
         try {
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-            const xaps = new UsersRepository();
-            request.user =  await xaps.findUser({_id: decodedToken.id}, {_id: true}, {});
+            const usersRepository = new UsersRepository();
+            request.user =  await usersRepository.findUser({_id: decodedToken.id}, {_id: true}, {});
             next()
         }
         catch (err){
             return  errorHandler(err, response)
         }
-    }
+    };
+
+
+
 
 }

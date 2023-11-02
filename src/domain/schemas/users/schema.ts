@@ -25,7 +25,6 @@ export const UserSchema = new Schema({
         type: String,
         required: [true, "Please add a password"],
         minLength: 6,
-        select: false
     },
     createdAt: {
         type: Date,
@@ -39,15 +38,3 @@ UserSchema.pre("save", async function () {
     this.password = await bcrypt.hash(this.password, salt)
 
 });
-
-UserSchema.methods.getJwtToken = function () {
-    const token = jwt.sign({id: this._id}, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE
-    });
-
-    return token
-};
-
-UserSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password)
-};
