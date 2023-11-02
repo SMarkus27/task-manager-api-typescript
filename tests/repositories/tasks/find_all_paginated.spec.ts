@@ -26,7 +26,7 @@ describe("TasksRepository Find All Paginated", () => {
             totalItems: 0
         }
 
-        const result = await tasksRepository.findAllPaginated(filter, sortField, skip, limit);
+        const result = await tasksRepository.findAllPaginatedTasks(filter, sortField, skip, limit);
         expect(result).toEqual(expected)
     });
 
@@ -74,7 +74,7 @@ describe("TasksRepository Find All Paginated", () => {
             totalItems: 10
         }
 
-        const result = await tasksRepository.findAllPaginated(filter, sortField, skip, limit);
+        const result = await tasksRepository.findAllPaginatedTasks(filter, sortField, skip, limit);
         expect(result).toEqual(expected)
 
 
