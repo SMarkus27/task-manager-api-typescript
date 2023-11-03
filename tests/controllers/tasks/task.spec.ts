@@ -25,7 +25,7 @@ describe("Task Controller", () => {
 
         jest.spyOn(TaskService.prototype, "createTask").mockImplementation( async () => {})
 
-        await taskController.createTask(request, {})
+        await taskController.createTask(request, Response)
         expect(TaskService.prototype.createTask).toBeCalledTimes(1)
     });
 
@@ -38,7 +38,7 @@ describe("Task Controller", () => {
 
         jest.spyOn(TaskService.prototype, "findOneTask").mockImplementation( async () => {})
 
-        await taskController.findOneTask(request, {})
+        await taskController.findOneTask(request, Response)
         expect(TaskService.prototype.findOneTask).toBeCalledTimes(1)
     });
 
@@ -53,7 +53,7 @@ describe("Task Controller", () => {
 
         jest.spyOn(TaskService.prototype, "findAllTasks").mockImplementation( async () => {})
 
-        await taskController.findAllTasks(request, {})
+        await taskController.findAllTasks(request, Response)
         expect(TaskService.prototype.findAllTasks).toBeCalledTimes(1)
     });
 
@@ -74,7 +74,7 @@ describe("Task Controller", () => {
 
         jest.spyOn(TaskService.prototype, "updateTask").mockImplementation( async () => {})
 
-        await taskController.updateTask(request, {})
+        await taskController.updateTask(request, Response)
         expect(TaskService.prototype.updateTask).toBeCalledTimes(1)
     });
 });
