@@ -1,13 +1,17 @@
 import {TaskModel} from "../../domain/models/tasks/model";
 import {ITasksRepository} from "../../core/interfaces/repositories/tasks/interface";
-import {TaskDataType, TaskFilterType, TaskProjectionType} from "../../domain/types/tasks/type";
+import {
+    TaskDataType,
+    TaskFilterRepositoryType,
+    TaskProjectionType
+} from "../../domain/types/tasks/type";
 export class TasksRepository implements ITasksRepository {
 
     async createTask(data: TaskDataType){
         return await TaskModel.create(data);
     };
 
-    async findAllPaginatedTasks(filter: TaskFilterType, sort: string, skip: number, limit: number){
+    async findAllPaginatedTasks(filter: TaskFilterRepositoryType, sort: string, skip: number, limit: number){
         let result;
 
         const totalItems = await TaskModel.countDocuments(filter);
@@ -28,10 +32,10 @@ export class TasksRepository implements ITasksRepository {
         }
 
     };
-    async findTask(filter: TaskFilterType, projection: TaskProjectionType){
+    async findTask(filter: TaskFilterRepositoryType, projection: TaskProjectionType){
         return TaskModel.findOne(filter, projection)
     };
-    async updateTask(filter: TaskFilterType, newData: TaskDataType){
+    async updateTask(filter: TaskFilterRepositoryType, newData: TaskDataType){
         return TaskModel.updateOne(filter, newData)
     };
 

@@ -5,6 +5,12 @@ export type TaskDataType = {
     user?: string
 }
 
+export type FindAllTaskDataType = {
+    sort?: string,
+    limit?: number,
+    page?: number,
+}
+
 export type UpdateTaskDataType = {
     newData: {
         name: string,
@@ -15,7 +21,11 @@ export type UpdateTaskDataType = {
 
 }
 
-export type TaskFilterType = {
+export type TaskFilterServiceType = {
+    id?: string
+}
+
+export type TaskFilterRepositoryType = {
     _id?: string
 }
 

@@ -1,6 +1,7 @@
 export class ErrorResponse extends Error {
     constructor(message, statusCode) {
         super(message);
+        // @ts-ignore
         this.statusCode = statusCode;
     }
 };
@@ -15,6 +16,7 @@ export const errorHandler = (err, response ) => {
     }
 
     if (err.name === "ValidationError") {
+        // @ts-ignore
         const message = Object.values(err.errors).map(val => val.message);
         error = new ErrorResponse(message, 400);
     }

@@ -8,7 +8,12 @@ import {
 } from "../../domain/responses/tasks/response";
 import {ITaskService} from "../../core/interfaces/services/tasks/interface";
 import {notAuthorizedError} from "../../domain/errors/error";
-import {TaskDataType, TaskFilterType, UpdateTaskDataType} from "../../domain/types/tasks/type";
+import {
+    FindAllTaskDataType,
+    TaskDataType,
+    TaskFilterServiceType,
+    UpdateTaskDataType
+} from "../../domain/types/tasks/type";
 
 export class TaskService implements ITaskService{
     private tasksRepository: TasksRepository;
@@ -30,7 +35,7 @@ export class TaskService implements ITaskService{
 
     }
 
-    async findAllTasks(taskData: TaskDataType, response) {
+    async findAllTasks(taskData: FindAllTaskDataType, response) {
         const sort = taskData["sort"] || "name";
         const page = +taskData["page"] || 1;
         const limit = +taskData["limit"] || 10;
@@ -44,11 +49,11 @@ export class TaskService implements ITaskService{
     }
 
 
-    async findOneTask(taskData: TaskFilterType, response) {
+    async findOneTask(taskData: TaskFilterServiceType, response) {
         try {
-            const taskId = taskData["id"];
-
+            const taskId = taskData["id"]
             const filter = {_id: taskId}
+
             const projection = {_id: false, __v:false}
             const taskResult = await this.tasksRepository.findTask(filter, projection)
 
@@ -75,6 +80,7 @@ export class TaskService implements ITaskService{
 
             const filter = {_id: taskId};
             const projection = {_id:false, __v:false};
+            // @ts-ignore
             const result = await this.tasksRepository.findTask(filter, projection)
 
             if (!result) {
@@ -84,6 +90,7 @@ export class TaskService implements ITaskService{
             if (result.user.toString() !== user.toString()) {
                 return errorHandler(notAuthorizedError, response)
             }
+            // @ts-ignore
 
             const taskUpdated = await this.tasksRepository.updateTask(filter, newData)
 
