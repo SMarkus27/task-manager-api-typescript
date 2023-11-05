@@ -18,9 +18,10 @@ describe("TasksRepository Update Task", () => {
         };
 
         const newData = {
-            completed: true
+
+                completed: true
         }
-        await tasksRepository.update(filter, newData);
+        await tasksRepository.updateTask(filter, newData);
 
         expect(TaskModel.updateOne).toBeCalledWith(filter, newData)
 

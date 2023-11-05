@@ -18,7 +18,7 @@ describe("TasksRepository Find Task", () => {
         };
 
         const projection = {}
-        await tasksRepository.findOne(filter, projection);
+        await tasksRepository.findTask(filter, projection);
 
         expect(TaskModel.findOne).toBeCalledWith(filter, projection)
 

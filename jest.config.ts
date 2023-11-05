@@ -8,8 +8,6 @@ const config: Config = {
   coverageProvider: "v8",
   preset: "ts-jest",
   testMatch: ["**/**/*.spec.ts"],
-  testEnvironment: 'node',
-
 };
 
 export default config;
