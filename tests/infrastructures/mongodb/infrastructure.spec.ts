@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {MongoDBInfrastructure} from "../../../src/infrastructures/mongodb/infrastructure";
+import {MongoDBInfrastructure} from "@infrastructures/mongodb/infrastructure";
 
 describe("MongoDBInfrastructure", () => {
     let mongoClient: MongoDBInfrastructure;

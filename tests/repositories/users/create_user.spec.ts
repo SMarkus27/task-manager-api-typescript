@@ -1,5 +1,5 @@
-import {UsersRepository} from "../../../src/repositories/users/repository";
-import {UserModel} from "../../../src/domain/models/users/model";
+import {UsersRepository} from "@repositories/users/repository";
+import {UserModel} from "@domain/models/users/model";
 
 jest.mock("../../../src/domain/models/users/model")
 

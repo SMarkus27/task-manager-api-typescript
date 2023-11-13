@@ -1,7 +1,7 @@
-import {UsersService} from "../../../src/services/users/service";
-import {errorHandler} from "../../../src/domain/responses/error/response";
+import {UsersService} from "@services/users/service";
+import {errorHandler} from "@domain/responses/error/response";
 import {response} from "express";
-import {UsersRepository} from "../../../src/repositories/users/repository";
+import {UsersRepository} from "@repositories/users/repository";
 const jwt = require("jsonwebtoken");
 
 jest.mock("../../../src/domain/responses/error/response")

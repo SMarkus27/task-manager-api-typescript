@@ -1,5 +1,5 @@
-import {TaskController} from "../../../src/controllers/tasks/controller";
-import {TaskService} from "../../../src/services/tasks/service";
+import {TaskController} from "@controllers/tasks/controller";
+import {TaskService} from "@services/tasks/service";
 
 
 describe("Task Controller", () => {

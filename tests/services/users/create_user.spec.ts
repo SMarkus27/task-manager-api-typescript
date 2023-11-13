@@ -1,5 +1,5 @@
-import {UsersService} from "../../../src/services/users/service";
-import {UsersRepository} from "../../../src/repositories/users/repository";
+import {UsersService} from "@services/users/service";
+import {UsersRepository} from "@repositories/users/repository";
 import {response} from "express";
 const responses = require("../../../src/domain/responses/users/response")
 

@@ -1,4 +1,4 @@
-import {calculateEndIndex, calculateSkip, paginationResult} from "../../src/utils/utils";
+import {calculateEndIndex, calculateSkip, paginationResult} from "@utils/utils";
 
 describe("Utils Test", () => {
 
