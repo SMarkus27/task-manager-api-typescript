@@ -1,5 +1,5 @@
-import {TasksRepository} from "../../../src/repositories/tasks/repository";
-import {TaskModel} from "../../../src/domain/models/tasks/model";
+import {TasksRepository} from "@repositories/tasks/repository";
+import {TaskModel} from "@domain/models/tasks/model";
 
 
 jest.mock("../../../src/domain/models/tasks/model")

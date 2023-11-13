@@ -1,5 +1,5 @@
-import {TaskService} from "../../../src/services/tasks/service";
-import {TasksRepository} from "../../../src/repositories/tasks/repository";
+import {TaskService} from "@services/tasks/service";
+import {TasksRepository} from "@repositories/tasks/repository";
 import {response} from "express";
 const responses = require("../../../src/domain/responses/tasks/response")
 

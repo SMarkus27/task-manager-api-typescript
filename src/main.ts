@@ -1,5 +1,5 @@
-import {MongoDBInfrastructure} from "./infrastructures/mongodb/infrastructure";
-import {errorHandler} from "./domain/responses/error/response";
+import { MongoDBInfrastructure } from "@infrastructures/mongodb/infrastructure";
+import { errorHandler } from "@domain/responses/error/response";
 const express = require("express");
 const cors = require("cors")
 const taskRouter = require("../src/routes/tasks/route")

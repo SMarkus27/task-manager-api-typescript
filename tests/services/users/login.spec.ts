@@ -1,7 +1,7 @@
-import {UsersService} from "../../../src/services/users/service";
+import {UsersService} from "@services/users/service";
 import {response} from "express";
-import {errorHandler} from "../../../src/domain/responses/error/response";
-import {UsersRepository} from "../../../src/repositories/users/repository";
+import {errorHandler} from "@domain/responses/error/response";
+import {UsersRepository} from "@repositories/users/repository";
 
 const responses = require("../../../src/domain/responses/users/response")
 

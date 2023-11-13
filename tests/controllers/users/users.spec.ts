@@ -1,5 +1,5 @@
-import {UsersController} from "../../../src/controllers/users/controller";
-import {UsersService} from "../../../src/services/users/service";
+import {UsersController} from "@controllers/users/controller";
+import {UsersService} from "@services/users/service";
 
 describe("User Controller", () => {
     let usersController: UsersController;
