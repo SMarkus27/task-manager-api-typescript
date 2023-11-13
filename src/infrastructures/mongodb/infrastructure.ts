@@ -3,13 +3,14 @@ import * as mongoose from "mongoose";
 import { config } from "dotenv";
 import * as process from "process";
 import {IMongoDBInfrastructure} from "@core/interfaces/infrastructures/mongodb/interface";
+import {Logger} from "@services/traceback/service";
 config()
 
 export class MongoDBInfrastructure implements IMongoDBInfrastructure {
 
     async getClient(): Promise<mongoose.Mongoose>{
         try {
-            console.log("Connecting to MongoDB")
+            Logger.info("Connecting to MongoDB")
             const mongoClient = await connect(
                 process.env.MONGODB_CONNECTION_STRING,
                 {
@@ -19,7 +20,7 @@ export class MongoDBInfrastructure implements IMongoDBInfrastructure {
             return mongoClient
         }
         catch (error) {
-            console.log("Something happening")
+            Logger.error("Something happening")
             throw new Error("MongoDB Connection Error")
 
 
