@@ -1,10 +1,10 @@
-import {TaskModel} from "../../domain/models/tasks/model";
-import {ITasksRepository} from "../../core/interfaces/repositories/tasks/interface";
+import {TaskModel} from "@domain/models/tasks/model";
+import {ITasksRepository} from "@core/interfaces/repositories/tasks/interface";
 import {
     TaskDataType,
     TaskFilterRepositoryType,
     TaskProjectionType
-} from "../../domain/types/tasks/type";
+} from "@domain/types/tasks/type";
 export class TasksRepository implements ITasksRepository {
 
     async createTask(data: TaskDataType){

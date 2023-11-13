@@ -1,6 +1,7 @@
-import {TaskService} from "../../services/tasks/service";
-import {ITaskController} from "../../core/interfaces/controllers/tasks/interface";
 import {Response} from "express";
+import {TaskService} from "@services/tasks/service";
+import {ITaskController} from "@core/interfaces/controllers/tasks/interface";
+
 const taskService =  new TaskService();
 
 export class TaskController implements ITaskController {

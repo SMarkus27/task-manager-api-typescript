@@ -1,11 +1,11 @@
-import {errorHandler, ErrorResponse} from "../../domain/responses/error/response";
-import {UsersRepository} from "../../repositories/users/repository";
-import {IUsersService} from "../../core/interfaces/services/users/interface";
+import {errorHandler, ErrorResponse} from "@domain/responses/error/response";
+import {UsersRepository} from "@repositories/users/repository";
+import {IUsersService} from "@core/interfaces/services/users/interface";
 import { config } from "dotenv";
-import {invalidCredentialsError, noCredentialsError, authorizationError} from "../../domain/errors/error";
-import {createUserResponse} from "../../domain/responses/users/response";
-import {UserDataType} from "../../domain/types/users/type";
-import {UserModel} from "../../domain/models/users/model";
+import {invalidCredentialsError, noCredentialsError, authorizationError} from "@domain/errors/error";
+import {createUserResponse} from "@domain/responses/users/response";
+import {UserDataType} from "@domain/types/users/type";
+
 const jwt = require("jsonwebtoken");
 config()
 

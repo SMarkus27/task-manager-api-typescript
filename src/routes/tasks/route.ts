@@ -1,5 +1,5 @@
-import {TaskController} from "../../controllers/tasks/controller";
-import {UsersService} from "../../services/users/service";
+import {TaskController} from "@controllers/tasks/controller";
+import {UsersService} from "@services/users/service";
 const express = require("express");
 
 const taskRouter = new TaskController();

@@ -1,7 +1,8 @@
-import { Schema } from "mongoose"
 import * as bcrypt from "bcryptjs"
-const jwt = require("jsonwebtoken");
 import { config } from "dotenv";
+import { Schema } from "mongoose"
+
+const jwt = require("jsonwebtoken");
 config()
 
 export const UserSchema = new Schema({

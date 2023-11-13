@@ -1,19 +1,19 @@
-import {TasksRepository} from "../../repositories/tasks/repository";
-import {calculateEndIndex, calculateSkip, paginationResult} from "../../utils/utils";
-import {errorHandler} from "../../domain/responses/error/response";
+import {TasksRepository} from "@repositories/tasks/repository";
+import {calculateEndIndex, calculateSkip, paginationResult} from "@utils/utils";
+import {errorHandler} from "@domain/responses/error/response";
 import {
     allTaskFoundResponse,
     createTaskResponse, taskFoundResponse,
     taskNotFoundResponse, updateTaskResponse
-} from "../../domain/responses/tasks/response";
-import {ITaskService} from "../../core/interfaces/services/tasks/interface";
-import {notAuthorizedError} from "../../domain/errors/error";
+} from "@domain/responses/tasks/response";
+import {ITaskService} from "@core/interfaces/services/tasks/interface";
+import {notAuthorizedError} from "@domain/errors/error";
 import {
     FindAllTaskDataType,
     TaskDataType,
     TaskFilterServiceType,
     UpdateTaskDataType
-} from "../../domain/types/tasks/type";
+} from "@domain/types/tasks/type";
 
 export class TaskService implements ITaskService{
     private tasksRepository: TasksRepository;

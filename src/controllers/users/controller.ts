@@ -1,6 +1,5 @@
-import {UsersService} from "../../services/users/service";
-import {IUsersController} from "../../core/interfaces/controllers/users/interface";
-import {UserDataType} from "../../domain/types/users/type";
+import {IUsersController} from "@core/interfaces/controllers/users/interface";
+import {UsersService} from "@services/users/service";
 
 const userService =  new UsersService()
 

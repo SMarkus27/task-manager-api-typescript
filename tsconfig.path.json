@@ -2,14 +2,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@controllers/*": ["src/controllers"],
-      "@core/*": ["src/core"],
-      "@domain/*": ["src/domain"],
-      "@infrastructures/*": ["src/infrastructures"],
-      "@repositories/*": ["src/repositories"],
-      "@root/*": ["src/root"],
-      "@routers/*": ["src/routers"],
-      "@services/*": ["src/services"]
+      "@controllers/*": ["src/controllers/*"],
+      "@core/*": ["src/core/*"],
+      "@domain/*": ["src/domain/*"],
+      "@infrastructures/*": ["src/infrastructures/*"],
+      "@repositories/*": ["src/repositories/*"],
+      "@root/*": ["./*"],
+      "@routers/*": ["src/routers/*"],
+      "@services/*": ["src/services/*"],
+      "@utils/*": ["src/utils/*"]
     }
   }
 }
