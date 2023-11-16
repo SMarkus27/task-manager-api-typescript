@@ -23,6 +23,6 @@ app.use("/api/v1/tasks", taskRouter);
 app.use("/api/v1/auth", userRouter);
 
 app.use(errorHandler);
-app.listen(PORT, console.log("Server running"));
+app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
 
 
